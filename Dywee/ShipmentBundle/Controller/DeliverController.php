@@ -19,15 +19,9 @@ class DeliverController extends Controller
         return $this->render('DyweeShipmentBundle:Deliver:table.html.twig', array('deliverList' => $deliverList));
     }
 
-    public function viewAction($id)
+    public function viewAction(Deliver $deliver)
     {
-        $sr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:Deliver');
-        $deliver = $sr->findOneById($id);
-        if($deliver != null)
-        {
-            return $this->render('DyweeShipmentBundle:Deliver:view.html.twig', array('deliver' => $deliver));
-        }
-        throw $this->createNotFoundException('Livreur non trouvé');
+        return $this->render('DyweeShipmentBundle:Deliver:view.html.twig', array('deliver' => $deliver));
     }
 
     public function addAction()
