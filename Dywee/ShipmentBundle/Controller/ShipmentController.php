@@ -111,8 +111,6 @@ class ShipmentController extends Controller
                     $shipment->setTracingInfos($result['WSI2_CreationEtiquetteResult']['ExpeditionNum']);
                     $shipment->setState(1);
                     $shipment->setUpdateDate(new \DateTime());
-                    $em->persist($shipment);
-                    $em->flush();
 
                     //Envoi de l'email disant que le colis a quitté l'entrepot
                     if (!$shipment->getMailSended()) {
@@ -132,9 +130,12 @@ class ShipmentController extends Controller
                             $message->setContentType("text/html");
                             $this->get('mailer')->send($message);
                         }
-
                         $shipment->setMailSended(true);
+
                     }
+
+                    $em->persist($shipment);
+                    $em->flush();
 
                     return $this->redirect('http://www.mondialrelay.be/'.$result['WSI2_CreationEtiquetteResult']['URL_Etiquette']);
                 }

@@ -26,43 +26,20 @@
         <tbody>
         {%  for shipment in shipmentList %}
             <tr>
-                <td><small>{{ shipment.id }}</small></td>
-                <td><small>{{ shipment.sendingIndex }}</small></td>
-                <td><small>{{ shipment.departureDate|date('d/m/Y') }}</small></td>
-                <td><small>{{ shipment.updateDate|date('d/m/Y') }}</small></td>
-                <td><small>{{ shipment.endDate|date('d/m/Y') }}</small></td>
-                <td><small>{{ shipment.order.deliver.name }}</small></td>
-                <td><small>{{ shipment.tracingInfos }}</small></td>
-                <td><small>
-                        {% if shipment.state == 0 %}
-                            <span class="label label-default">Inactif</span>
-                        {% elseif shipment.state == 1 %}
-                            <span class="label label-info">Envoi préparé</span>
-                        {% elseif shipment.state == 2 %}
-                            <span class="label label-info">Pris en charge par le transporteur</span>
-                        {% elseif shipment.state == 3 %}
-                            <span class="label label-info">Arrivé en point relai</span>
-                        {% elseif shipment.state == 4 %}
-                            <span class="label label-warning">Retourné chez le livreur</span>
-                        {% elseif shipment.state == 5 %}
-                            <span class="label label-warning">Retourné chez l'expéditeur</span>
-                        {% elseif shipment.state == 6 %}
-                            <span class="label label-info">Enregistré chez mondial Relay</span>
-                        {% elseif shipment.state == 7 %}
-                            <span class="label label-default">NC</span>
-                        {% elseif shipment.state == 8 %}
-                            <span class="label label-default">NC</span>
-                        {% elseif shipment.state == 9 %}
-                            <span class="label label-success">Finalisé</span>
-                        {% endif %}
-                    </small>
-                </td>
-                <td><small> <a href="{{ path('dywee_shipment_view', {id: shipment.id}) }}" class="link-unstyled"><i class="fa fa-eye"></i> </a>
+                <td>{{ shipment.id }}</td>
+                <td>{{ shipment.sendingIndex }}</td>
+                <td>{{ shipment.departureDate|date('d/m/Y') }}</td>
+                <td>{{ shipment.updateDate|date('d/m/Y') }}</td>
+                <td>{{ shipment.endDate|date('d/m/Y') }}</td>
+                <td>{{ shipment.order.deliver.name }}</td>
+                <td>{{ shipment.tracingInfos }}</td>
+                <td>{% include 'DyweeShipmentBundle:Shipment:state.html.twig' %}</td>
+                <td> <a href="{{ path('dywee_shipment_view', {id: shipment.id}) }}" class="link-unstyled"><i class="fa fa-eye"></i> </a>
                         <a href="{{ path('dywee_shipment_note_download', {idShipment: shipment.id}) }}" class="link-unstyled"><i class="fa fa-print"></i> </a>
                         <a href="{{ path('dywee_shipment_label', {id: shipment.id}) }}" class="link-unstyled"><i class="fa fa-barcode"></i> </a>
                         {#<a href="{{ path('dywee_shipment_update', {id: shipment.id}) }}" class="link-unstyled"><i class="fa fa-pencil"></i> </a>#}
                         {#<a href="{{ path('dywee_shipment_delete', {id: shipment.id}) }}" class="link-unstyled"><i class="fa fa-trash-o"></i> </a>#}
-                    </small>
+                    
                 </td>
             </tr>
         {% endfor %}
