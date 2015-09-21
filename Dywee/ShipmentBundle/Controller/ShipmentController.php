@@ -74,7 +74,7 @@ class ShipmentController extends Controller
                     'Dest_Ville' => $shippingAddress->getCityString(),
                     'Dest_CP' => $shippingAddress->getZip(),
                     'Dest_Pays' => $shippingAddress->getCountry()->getIso(),
-                    'Dest_Tel1' => $shippingAddress->getMobile(),
+                    'Dest_Tel1' => '+'.$shippingAddress->getMobile()->getCountryCode().$shippingAddress->getMobile()->getNationalNumber(),
                     'Dest_Mail' => $shippingAddress->getEmail(),
 
                     'Poids' => $shipment->getWeight(),
