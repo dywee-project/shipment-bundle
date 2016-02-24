@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ShipmentElement
  *
  * @ORM\Table(name="shipment_elements")
- * @ORM\Entity(repositoryClass="Dywee\ShipmentBundle\Entity\ShipmentElementRepository")
+ * @ORM\Entity(repositoryClass="Dywee\ShipmentBundle\Repository\ShipmentElementRepository")
  */
 class ShipmentElement
 {

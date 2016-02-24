@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Deliver
  *
  * @ORM\Table(name="delivers")
- * @ORM\Entity(repositoryClass="Dywee\ShipmentBundle\Entity\DeliverRepository")
+ * @ORM\Entity(repositoryClass="Dywee\ShipmentBundle\Repository\DeliverRepository")
  */
 class Deliver
 {
