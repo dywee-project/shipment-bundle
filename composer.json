@@ -2,7 +2,7 @@
   "name": "dywee/shipment-bundle",
   "type": "symfony-bundle",
   "description": "Symfony2 bundle for easy management of shipments",
-  "keywords": ["shipment, e-commerce"],
+  "keywords": ["shipment", "e-commerce"],
   "license": "MIT",
   "authors": [
     {
