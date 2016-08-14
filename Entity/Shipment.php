@@ -3,6 +3,7 @@
 namespace Dywee\ShipmentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dywee\OrderBundle\Entity\BaseOrderInterface;
 
 /**
  * Shipment
@@ -312,7 +313,7 @@ class Shipment
     /**
      * Get order
      *
-     * @return \Dywee\OrderBundle\Entity\BaseOrder 
+     * @return BaseOrderInterface
      */
     public function getOrder()
     {
@@ -345,10 +346,10 @@ class Shipment
     /**
      * Set order
      *
-     * @param \Dywee\OrderBundle\Entity\BaseOrder $order
+     * @param BaseOrderInterface $order
      * @return Shipment
      */
-    public function setOrder(\Dywee\OrderBundle\Entity\BaseOrder $order = null)
+    public function setOrder(BaseOrderInterface $order = null)
     {
         $this->order = $order;
 
