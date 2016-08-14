@@ -1,7 +1,7 @@
 {
   "name": "dywee/shipment-bundle",
   "type": "symfony-bundle",
-  "description": "Symfony2 bundle for easy management of shipments",
+  "description": "Symfony3 bundle for easy management of shipments",
   "keywords": ["shipment"],
   "license": "MIT",
   "authors": [
@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": ">=5.3.0",
+    "php": ">=7.0.0",
     "dywee/core-bundle": "dev-master"
   },
   "autoload": {
