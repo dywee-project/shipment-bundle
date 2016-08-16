@@ -2,21 +2,24 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Dywee\OrderBundle\Entity\Deliver;
-use Dywee\ShipmentBundle\Entity\Shipment;
-use Dywee\ShipmentBundle\Entity\ShipmentElement;
+use Dywee\ShipmentBundle\Entity\Deliver;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 class DeliverController extends Controller
 {
+    /**
+     * @return Response
+     *
+     * @Route(name="deliver_table", path="admin/deliver")
+     */
     public function tableAction()
     {
-        $dr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:Deliver');
+        $dr = $this->getDoctrine()->getRepository('DyweeShipmentBundle:Deliver');
         $deliverList = $dr->findAll();
 
-        return $this->render('DyweeShipmentBundle:Deliver:table.html.twig', array('deliverList' => $deliverList));
+        return $this->render('DyweeShipmentBundle:Deliver:table.html.twig', array('delivers' => $deliverList));
     }
 
     public function viewAction(Deliver $deliver)
@@ -26,7 +29,6 @@ class DeliverController extends Controller
 
     public function addAction()
     {
-        //$this->hydrate();
         return new Response('add');
     }
 

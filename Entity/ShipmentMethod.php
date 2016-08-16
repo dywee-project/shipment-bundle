@@ -3,6 +3,7 @@
 namespace Dywee\ShipmentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dywee\AddressBundle\Entity\Country;
 
 /**
  * ShipmentMethod
@@ -60,7 +61,7 @@ class ShipmentMethod
     private $country;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dywee\ShipmentBundle\Entity\Deliver")
+     * @ORM\ManyToOne(targetEntity="Deliver")
      */
     private $deliver;
 
@@ -192,10 +193,10 @@ class ShipmentMethod
     /**
      * Set country
      *
-     * @param \Dywee\AddressBundle\Entity\Country $country
+     * @param Country $country
      * @return ShipmentMethod
      */
-    public function setCountry(\Dywee\AddressBundle\Entity\Country $country = null)
+    public function setCountry(Country $country = null)
     {
         $this->country = $country;
 
@@ -205,7 +206,7 @@ class ShipmentMethod
     /**
      * Get country
      *
-     * @return \Dywee\AddressBundle\Entity\Country
+     * @return Country
      */
     public function getCountry()
     {
@@ -215,10 +216,10 @@ class ShipmentMethod
     /**
      * Set deliver
      *
-     * @param \Dywee\ShipmentBundle\Entity\Deliver $deliver
+     * @param Deliver $deliver
      * @return ShipmentMethod
      */
-    public function setDeliver(\Dywee\ShipmentBundle\Entity\Deliver $deliver = null)
+    public function setDeliver(Deliver $deliver = null)
     {
         $this->deliver = $deliver;
 
@@ -228,7 +229,7 @@ class ShipmentMethod
     /**
      * Get deliver
      *
-     * @return \Dywee\ShipmentBundle\Entity\Deliver 
+     * @return Deliver
      */
     public function getDeliver()
     {

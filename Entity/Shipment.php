@@ -2,8 +2,11 @@
 
 namespace Dywee\ShipmentBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Dywee\CoreBundle\Traits\TimeDelimitableEntity;
 use Dywee\OrderBundle\Entity\BaseOrderInterface;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Shipment
@@ -13,6 +16,18 @@ use Dywee\OrderBundle\Entity\BaseOrderInterface;
  */
 class Shipment
 {
+
+    const STATE_NOT_PREPARED = 'shipment.state.not_prepared';
+    const STATE_PREPARING = 'shipment.state.preparing';
+    const STATE_WAITING = 'shipment.state.waiting';
+    const STATE_SHIPPING = 'shipment.state.shipping';
+    const STATE_SHIPPED = 'shipped';
+    const STATE_WAITING_CUSTOMER = 'shipment.state.waiting_customer';
+    const STATE_RETURNED = 'shipment.state.returned';
+
+    use TimestampableEntity;
+    use TimeDelimitableEntity;
+
     /**
      * @var integer
      *
@@ -25,54 +40,26 @@ class Shipment
     /**
      * @var integer
      *
-     * @ORM\Column(name="sendingIndex", type="smallint", nullable=true)
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $sendingIndex;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="departureDate", type="datetime")
-     */
-    private $departureDate;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
-     */
-    private $updateDate;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="endDate", type="datetime", nullable=true)
-     */
-    private $endDate;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idDeliver", type="smallint", nullable=true)
-     */
-    private $idDeliver;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="tracingInfos", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tracingInfos;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="state", type="smallint")
+     * @ORM\Column(type="text", length=255)
      */
     private $state = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity="Dywee\ShipmentBundle\Entity\ShipmentElement", mappedBy="shipment", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ShipmentElement", mappedBy="shipment", cascade={"persist", "remove"})
      */
     private $shipmentElements;
 
@@ -83,12 +70,12 @@ class Shipment
     private $order;
 
     /**
-     * @ORM\Column(name="mailSended", type="boolean")
+     * @ORM\Column(type="smallint")
      */
-    private $mailSended = false;
+    private $mailStep = 0;
 
     /**
-     * @ORM\Column(name="weight", type="float")
+     * @ORM\Column(name="weight", type="decimal", precision=10, scale=3)
      */
     private $weight = 0;
 
@@ -125,98 +112,7 @@ class Shipment
     {
         return $this->sendingIndex;
     }
-
-    /**
-     * Set departureDate
-     *
-     * @param \DateTime $departureDate
-     * @return Shipment
-     */
-    public function setDepartureDate($departureDate)
-    {
-        $this->departureDate = $departureDate;
-
-        return $this;
-    }
-
-    /**
-     * Get departureDate
-     *
-     * @return \DateTime 
-     */
-    public function getDepartureDate()
-    {
-        return $this->departureDate;
-    }
-
-    /**
-     * Set updateDate
-     *
-     * @param \DateTime $updateDate
-     * @return Shipment
-     */
-    public function setUpdateDate($updateDate)
-    {
-        $this->updateDate = $updateDate;
-
-        return $this;
-    }
-
-    /**
-     * Get updateDate
-     *
-     * @return \DateTime 
-     */
-    public function getUpdateDate()
-    {
-        return $this->updateDate;
-    }
-
-    /**
-     * Set endDate
-     *
-     * @param \DateTime $endDate
-     * @return Shipment
-     */
-    public function setEndDate($endDate)
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    /**
-     * Get endDate
-     *
-     * @return \DateTime 
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * Set idDeliver
-     *
-     * @param integer $idDeliver
-     * @return Shipment
-     */
-    public function setIdDeliver($idDeliver)
-    {
-        $this->idDeliver = $idDeliver;
-
-        return $this;
-    }
-
-    /**
-     * Get idDeliver
-     *
-     * @return integer 
-     */
-    public function getIdDeliver()
-    {
-        return $this->idDeliver;
-    }
+    
 
     /**
      * Set tracingInfos
@@ -273,16 +169,16 @@ class Shipment
      */
     public function __construct()
     {
-        $this->shipmentElements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->shipmentElements = new ArrayCollection();
     }
 
     /**
      * Add shipmentElements
      *
-     * @param \Dywee\ShipmentBundle\Entity\ShipmentElement $shipmentElements
+     * @param ShipmentElement $shipmentElements
      * @return Shipment
      */
-    public function addShipmentElement(\Dywee\ShipmentBundle\Entity\ShipmentElement $shipmentElements)
+    public function addShipmentElement(ShipmentElement $shipmentElements)
     {
         $this->shipmentElements[] = $shipmentElements;
         $shipmentElements->setShipment($this);
@@ -293,9 +189,9 @@ class Shipment
     /**
      * Remove shipmentElements
      *
-     * @param \Dywee\ShipmentBundle\Entity\ShipmentElement $shipmentElements
+     * @param ShipmentElement $shipmentElements
      */
-    public function removeShipmentElement(\Dywee\ShipmentBundle\Entity\ShipmentElement $shipmentElements)
+    public function removeShipmentElement(ShipmentElement $shipmentElements)
     {
         $this->shipmentElements->removeElement($shipmentElements);
     }
@@ -318,29 +214,6 @@ class Shipment
     public function getOrder()
     {
         return $this->order;
-    }
-
-    /**
-     * Set old_id
-     *
-     * @param integer $oldId
-     * @return Shipment
-     */
-    public function setOldId($oldId)
-    {
-        $this->old_id = $oldId;
-
-        return $this;
-    }
-
-    /**
-     * Get old_id
-     *
-     * @return integer 
-     */
-    public function getOldId()
-    {
-        return $this->old_id;
     }
 
     /**
@@ -389,26 +262,45 @@ class Shipment
     }
 
     /**
-     * Set mailSended
+     * Set mailStep
      *
-     * @param boolean $mailSended
+     * @param int $mailStep
      *
      * @return Shipment
      */
-    public function setMailSended($mailSended)
+    public function setMailStep($mailStep)
     {
-        $this->mailSended = $mailSended;
+        $this->mailStep= $mailStep;
 
         return $this;
     }
 
     /**
-     * Get mailSended
+     * Get mailStep
      *
-     * @return boolean
+     * @return int
      */
-    public function getMailSended()
+    public function getMailStep()
     {
-        return $this->mailSended;
+        return $this->mailStep;
+    }
+
+    /**
+     * alias
+     * @param $date
+     * @return TimeDelimitableEntity
+     */
+    public function setDepartureAt($date)
+    {
+        return $this->setBeginAt($date);
+    }
+
+    /**
+     * alias
+     * @return \DateTime
+     */
+    public function getDepartureAt()
+    {
+        return $this->getBeginAt();
     }
 }

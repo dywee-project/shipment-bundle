@@ -24,16 +24,16 @@ class Deliver
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="state", type="boolean")
+     * @ORM\Column(type="boolean")
      */
-    private $state;
+    private $active;
 
 
     /**
@@ -90,28 +90,5 @@ class Deliver
     public function getActive()
     {
         return $this->active;
-    }
-
-    /**
-     * Set state
-     *
-     * @param boolean $state
-     * @return Deliver
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
-     * Get state
-     *
-     * @return boolean 
-     */
-    public function getState()
-    {
-        return $this->state;
     }
 }
