@@ -29,12 +29,7 @@ class ShipmentAdminSidebarHandler
                 array(
                     'icon' => 'fa fa-list-alt',
                     'label' => 'shipment.sidebar.table',
-                    'route' => $this->router->generate('order_table')
-                ),
-                array(
-                    'icon' => 'fa fa-cog',
-                    'label' => 'shipment.sidebar.invoice',
-                    'route' => $this->router->generate('order_reference_update')
+                    'route' => $this->router->generate('shipment_method_table')
                 ),
             )
         );

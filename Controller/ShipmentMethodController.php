@@ -2,32 +2,85 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Dywee\OrderBundle\Entity\DeliveryMethod;
-use Dywee\ShipmentBundle\Entity\Shipment;
-use Dywee\ShipmentBundle\Entity\ShipmentElement;
+use Dywee\ShipmentBundle\Entity\ShipmentMethod;
+use Dywee\ShipmentBundle\Form\ShipmentMethodType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 class ShipmentMethodController extends Controller
 {
+    /**
+     * @return Response
+     *
+     * @Route(name="shipment_method_table", path="admin/shipment/method")
+     */
     public function tableAction()
     {
         $dr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:ShipmentMethod');
         $shipmentMethodList = $dr->findAll();
 
-        return $this->render('DyweeShipmentBundle:ShipmentMethod:table.html.twig', array('shipmentMethodList' => $shipmentMethodList));
+        return $this->render('DyweeShipmentBundle:ShipmentMethod:table.html.twig', array('shipmentMethods' => $shipmentMethodList));
     }
 
-    public function viewAction($id)
+    /**
+     * @param Request $request
+     * @return mixed
+     *
+     * @Route(name="shipment_method_add", path="admin/shipment/method/add")
+     */
+    public function addAction(Request $request)
     {
-        $sr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:ShipmentMethod');
-        $shipmentMethod = $sr->findOneById($id);
-        if($shipmentMethod == null)
-            throw $this->createNotFoundException('Livreur non trouvé');
+        $shipmentMethod = new ShipmentMethod();
 
-        return $this->render('DyweeShipmentBundle:ShipmentMethod:view.html.twig', array('shipmentMethodList' => $shipmentMethod));
+        $form = $this->createForm(ShipmentMethodType::class, $shipmentMethod);
+
+        if($form->handleRequest($request)->isValid())
+        {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($shipmentMethod);
+            $em->flush();
+
+            return $this->redirectToRoute('shipment_method_table');
+        }
+
+        return $this->render('DyweeShipmentBundle:ShipmentMethod:add.html.twig', array('form' => $form->createView()));
     }
+
+    /**
+     * @param ShipmentMethod $shipmentMethod
+     * @return Response
+     *
+     * @Route(name="shipment_method_view", path="admin/shipment/method/{id}")
+     */
+    public function viewAction(ShipmentMethod $shipmentMethod)
+    {
+        return $this->render('DyweeShipmentBundle:ShipmentMethod:view.html.twig', array('shipmentMethods' => $shipmentMethod));
+    }
+
+    /**
+     * @param ShipmentMethod $shipmentMethod
+     * @param Request $request
+     *
+     * @Route(name="shipment_method_update", path="admin/shipment/method/{id}/update")
+     */
+    public function updateAction(ShipmentMethod $shipmentMethod, Request $request)
+    {
+        $form = $this->createForm(ShipmentMethodType::class, $shipmentMethod);
+
+        if($form->handleRequest($request)->isValid())
+        {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($shipmentMethod);
+            $em->flush();
+
+            return $this->redirectToRoute('shipment_method_table');
+        }
+
+        return $this->render('DyweeShipmentBundle:ShipmentMethod:edit.html.twig', array('form' => $form->createView()));
+    }
+
 
     public function searchAjaxAction()
     {

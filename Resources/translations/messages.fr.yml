@@ -1,0 +1,15 @@
+shipment:
+    sidebar:
+        label: Gestion des envois
+        table: Liste des méthodes d'envoi
+
+    all_country: Tous les pays
+    no_weight_limit: pas de limite de poids
+
+    active: Actif
+    inactive: Inactif
+
+
+deliver:
+    sidebar:
+        table: Liste des livreurs

@@ -4,6 +4,7 @@ namespace Dywee\ShipmentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dywee\AddressBundle\Entity\Country;
+use Dywee\CoreBundle\Traits\NameableEntity;
 
 /**
  * ShipmentMethod
@@ -13,6 +14,8 @@ use Dywee\AddressBundle\Entity\Country;
  */
 class ShipmentMethod
 {
+    use NameableEntity;
+
     /**
      * @var integer
      *
@@ -25,33 +28,33 @@ class ShipmentMethod
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="minWeight", type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $minWeight;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="maxWeight", type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $maxWeight;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(type="decimal", precision=10, scale=3)
      */
-    private $price;
+    private $price = 0;
 
     /**
-     * @ORM\Column(name="active", type="boolean")
+     * @ORM\Column(type="boolean")
      */
     private $active;
 
