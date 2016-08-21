@@ -30,7 +30,7 @@ class ShipmentMethodType extends AbstractType
             ->add('country',    EntityType::class,          array(
                 'class'         => 'DyweeAddressBundle:Country',
                 'choice_label'  => 'name',
-                'required'      => true
+                'required'      => false
             ))
             ->add('price',      MoneyType::class)
             ->add('minWeight', NumberType::class, array('required' => false))

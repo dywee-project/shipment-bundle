@@ -238,4 +238,9 @@ class ShipmentMethod
     {
         return $this->deliver;
     }
+
+    public function getNameWithPrice()
+    {
+        return $this->getName(). ' ( '.number_format($this->getPrice(), 2).'€ )';
+    }
 }
