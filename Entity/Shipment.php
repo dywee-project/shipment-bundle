@@ -56,7 +56,7 @@ class Shipment
      *
      * @ORM\Column(type="text", length=255)
      */
-    private $state = 0;
+    private $state = self::STATE_NOT_PREPARED;
 
     /**
      * @ORM\OneToMany(targetEntity="ShipmentElement", mappedBy="shipment", cascade={"persist", "remove"})

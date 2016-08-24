@@ -3,6 +3,7 @@
 namespace Dywee\ShipmentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dywee\ProductBundle\Entity\BaseProduct;
 
 /**
  * ShipmentElement
@@ -35,7 +36,7 @@ class ShipmentElement
     private $shipment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dywee\ProductBundle\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="Dywee\ProductBundle\Entity\BaseProduct")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
@@ -82,10 +83,10 @@ class ShipmentElement
     /**
      * Set shipment
      *
-     * @param \Dywee\ShipmentBundle\Entity\Shipment $shipment
+     * @param Shipment $shipment
      * @return ShipmentElement
      */
-    public function setShipment(\Dywee\ShipmentBundle\Entity\Shipment $shipment)
+    public function setShipment(Shipment $shipment)
     {
         $this->shipment = $shipment;
 
@@ -95,7 +96,7 @@ class ShipmentElement
     /**
      * Get shipment
      *
-     * @return \Dywee\ShipmentBundle\Entity\Shipment 
+     * @return Shipment
      */
     public function getShipment()
     {
@@ -105,10 +106,10 @@ class ShipmentElement
     /**
      * Set product
      *
-     * @param \Dywee\ProductBundle\Entity\Product $product
+     * @param BaseProduct $product
      * @return ShipmentElement
      */
-    public function setProduct(\Dywee\ProductBundle\Entity\Product $product)
+    public function setProduct(BaseProduct $product)
     {
         $this->product = $product;
 
