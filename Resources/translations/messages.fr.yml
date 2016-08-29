@@ -13,3 +13,12 @@ shipment:
 deliver:
     sidebar:
         table: Liste des livreurs
+
+shipmentMethod:
+    form:
+        name: Nom
+        deliver: Livreur
+        code: Code spécifique livreur
+        minWeight: Poids minimum
+        maxWeight: Poids maximum
+        active: Active

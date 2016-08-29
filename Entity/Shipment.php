@@ -79,6 +79,11 @@ class Shipment
      */
     private $weight = 0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ShipmentMethod")
+     */
+    private $shipmentMethod;
+
 
     /**
      * Get id
@@ -303,4 +308,24 @@ class Shipment
     {
         return $this->getBeginAt();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getShipmentMethod()
+    {
+        return $this->shipmentMethod;
+    }
+
+    /**
+     * @param mixed $shipmentMethod
+     * @return Shipment
+     */
+    public function setShipmentMethod($shipmentMethod)
+    {
+        $this->shipmentMethod = $shipmentMethod;
+        return $this;
+    }
+
+
 }

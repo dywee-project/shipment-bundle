@@ -5,7 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Modification d'une méthode de livraison</h1>
 
-    {%  include "DyweeShipmentBundle:ShipmentMethod:form.html.twig" %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Modification d'une méthode de livraison</h2>
+                </div>
+                <div class="box-body">
+                    {%  include "DyweeShipmentBundle:ShipmentMethod:form.html.twig" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            {% include 'DyweeShipmentBundle:ShipmentMethod:helper.html.twig' %}
+        </div>
+    </div>
+
+
 {% endblock %}

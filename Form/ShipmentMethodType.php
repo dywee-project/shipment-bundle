@@ -21,22 +21,23 @@ class ShipmentMethodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',      TextType::class)
+            ->add('name',      TextType::class, array('label' => 'shipmentMethod.form.name'))
             ->add('deliver',    EntityType::class,          array(
                 'class'         => 'DyweeShipmentBundle:Deliver',
                 'choice_label'  => 'name',
-                'required'      => true
+                'required'      => true,
+                'label'         => 'shipmentMethod.form.deliver'
             ))
+            ->add('type',       TextType::class, array('required' => false, 'label' => 'shipmentMethod.form.code'))
             ->add('country',    EntityType::class,          array(
                 'class'         => 'DyweeAddressBundle:Country',
                 'choice_label'  => 'name',
                 'required'      => false
             ))
             ->add('price',      MoneyType::class)
-            ->add('minWeight', NumberType::class, array('required' => false))
-            ->add('maxWeight', NumberType::class, array('required' => false))
-            ->add('active',    CheckboxType::class, array('required' => false))
-            ->add('save', SubmitType::class)
+            ->add('minWeight', NumberType::class, array('required' => false, 'label' => 'shipmentMethod.form.minWeight'))
+            ->add('maxWeight', NumberType::class, array('required' => false, 'label' => 'shipmentMethod.form.maxWeight'))
+            ->add('active',    CheckboxType::class, array('required' => false, 'label' => 'shipmentMethod.form.active'))
         ;
     }
 
