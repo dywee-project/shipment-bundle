@@ -327,5 +327,25 @@ class Shipment
         return $this;
     }
 
+    public function canBeReconciliated()
+    {
+        foreach($this->getShipmentElements() as $element)
+        {
+            if($element->canBeReconciliated())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function countElements()
+    {
+        $sum = 0;
+        foreach($this->getShipmentElements() as $shipmentElement)
+            $sum += $shipmentElement->getQuantity();
+        return $sum;
+    }
+
 
 }

@@ -30,7 +30,7 @@ class ShipmentElement
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dywee\ShipmentBundle\Entity\Shipment", inversedBy="shipmentElements")
+     * @ORM\ManyToOne(targetEntity="Dywee\ShipmentBundle\Entity\Shipment", inversedBy="shipmentElements", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $shipment;
@@ -45,6 +45,12 @@ class ShipmentElement
      * @ORM\Column(name="weight", type="float")
      */
     private $weight = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="boolean")
+     */
+    private $canBeReconciliated = true;
 
 
     /**
@@ -147,5 +153,28 @@ class ShipmentElement
     public function getWeight()
     {
         return $this->weight;
+    }
+
+    public function canBeReconciliated()
+    {
+        return $this->canBeReconciliated;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCanBeReconciliated()
+    {
+        return $this->canBeReconciliated;
+    }
+
+    /**
+     * @param int $canBeReconciliated
+     * @return ShipmentElement
+     */
+    public function setCanBeReconciliated($canBeReconciliated)
+    {
+        $this->canBeReconciliated = $canBeReconciliated;
+        return $this;
     }
 }

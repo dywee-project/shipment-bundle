@@ -31,6 +31,11 @@ class ShipmentAdminSidebarHandler
                     'label' => 'shipment.sidebar.table',
                     'route' => $this->router->generate('shipment_method_table')
                 ),
+                array(
+                    'icon' => 'fa fa-list-alt',
+                    'label' => 'shipmentRule.sidebar.table',
+                    'route' => $this->router->generate('shipment_rule_table')
+                ),
             )
         );
 

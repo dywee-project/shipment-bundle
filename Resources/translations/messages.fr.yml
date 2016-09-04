@@ -22,3 +22,7 @@ shipmentMethod:
         minWeight: Poids minimum
         maxWeight: Poids maximum
         active: Active
+
+shipmentRule:
+    sidebar:
+        table: Liste des règles
