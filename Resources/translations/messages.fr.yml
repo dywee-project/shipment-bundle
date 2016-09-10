@@ -9,6 +9,14 @@ shipment:
     active: Actif
     inactive: Inactif
 
+    state:
+        not_prepared: Non préparé
+        preparing: En préparation
+        waiting: En attente
+        shipping: En livraison
+        shipped: Livré
+        waiting_customer: En attente de réception
+        returned: Retourné
 
 deliver:
     sidebar:

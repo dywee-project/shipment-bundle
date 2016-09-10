@@ -1,5 +1,5 @@
 {# Dywee\ShipmentBundle\Resources\View\Shipment\table.html.twig #}
-
+{#
 {% if shipment.state == 0 %}
     <span class="label label-default">Inactif</span>
 {% elseif shipment.state == 1 %}
@@ -21,3 +21,5 @@
 {% elseif shipment.state == 9 %}
     <span class="label label-success">Finalisé</span>
 {% endif %}
+#}
+{{ shipment.state|trans }}

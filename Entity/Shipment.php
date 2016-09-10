@@ -21,7 +21,7 @@ class Shipment
     const STATE_PREPARING = 'shipment.state.preparing';
     const STATE_WAITING = 'shipment.state.waiting';
     const STATE_SHIPPING = 'shipment.state.shipping';
-    const STATE_SHIPPED = 'shipped';
+    const STATE_SHIPPED = 'shipment.state.shipped';
     const STATE_WAITING_CUSTOMER = 'shipment.state.waiting_customer';
     const STATE_RETURNED = 'shipment.state.returned';
 
@@ -82,7 +82,7 @@ class Shipment
     /**
      * @ORM\ManyToOne(targetEntity="ShipmentMethod")
      */
-    private $shipmentMethod;
+    private $shippingMethod;
 
 
     /**
@@ -153,7 +153,7 @@ class Shipment
         if($state != $this->state)
         {
             $this->state = $state;
-            $this->setMailSended(false);
+            $this->setMailStep(null);
         }
 
 
@@ -209,6 +209,12 @@ class Shipment
     public function getShipmentElements()
     {
         return $this->shipmentElements;
+    }
+
+    public function clearShipmentElements()
+    {
+        $this->shipmentElements = new ArrayCollection();
+        return $this;
     }
 
     /**
@@ -312,18 +318,18 @@ class Shipment
     /**
      * @return mixed
      */
-    public function getShipmentMethod()
+    public function getShippingMethod()
     {
-        return $this->shipmentMethod;
+        return $this->shippingMethod;
     }
 
     /**
-     * @param mixed $shipmentMethod
+     * @param ShipmentMethod $shippingMethod
      * @return Shipment
      */
-    public function setShipmentMethod($shipmentMethod)
+    public function setShippingMethod(ShipmentMethod $shippingMethod)
     {
-        $this->shipmentMethod = $shipmentMethod;
+        $this->shippingMethod = $shippingMethod;
         return $this;
     }
 
@@ -347,5 +353,9 @@ class Shipment
         return $sum;
     }
 
-
+    public function __clone()
+    {
+        $this->id = null;
+        $this->shipmentElements = new ArrayCollection();
+    }
 }

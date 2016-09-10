@@ -24,7 +24,7 @@ class ShipmentRuleType extends AbstractType
         $builder
             ->add('name')
             ->add('mappedKey', ChoiceType::class, array('choices' => array(
-                'quantity' => 'quantity'
+                'quantity' => 'quantity',
             )))
             ->add('operator', ChoiceType::class, array('choices' => array(
                 '<' => '<'

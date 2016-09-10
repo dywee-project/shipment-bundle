@@ -2,30 +2,39 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Dywee\CoreBundle\Controller\ParentController;
+use Dywee\OrderBundle\Entity\BaseOrder;
+use Dywee\ShipmentBundle\Entity\Shipment;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShipmentController extends Controller
+class ShipmentController extends ParentController
 {
-    public function tableAction($idOrder)
+    /**
+     * @Route(name="shipment_table", path="admin/order/{id}/shipments")
+     */
+    public function shipmentTableAction(BaseOrder $order)
     {
-        $cr = $this->getDoctrine()->getManager()->getRepository('DyweeOrderBundle:BaseOrder');
-        $order = $cr->findOneById($idOrder);
-
-        if($order != null)
-            return $this->render('DyweeShipmentBundle:Shipment:table.html.twig', array('shipmentList' => $order->getShipments()));
-
-        throw $this->createNotFoundException('La commande ne semble pas exister');
+        return $this->render('DyweeShipmentBundle:Shipment:table.html.twig', array('shipments' => $order->getShipments()));
     }
 
-    public function viewAction($id)
+    /**
+     * @Route(name="shipment_view", path="admin/shipment/{id}", requirements={"id": "\d+"})
+     */
+    public function shipmentViewAction(Shipment $shipment, $parameters = null)
     {
-        $sr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:Shipment');
-        $shipment = $sr->findOneById($id);
-        if($shipment != null)
-            return $this->render('DyweeShipmentBundle:Shipment:view.html.twig', array('shipment' => $shipment));
+        return parent::viewAction($shipment, $parameters);
+    }
 
-        throw $this->createNotFoundException('Envoi non trouvé');
+    /**
+     * @Route(name="shipment_edit", path="admin/shipment/{id}/edit")
+     */
+    public function shipmentUpdateAction(Shipment $object, Request $request, $parameters = null)
+    {
+        $parameters['redirectTo'] = 'shipment_table';
+        $parameters['routingArgs']['id'] = $object->getOrder()->getId();
+        return parent::updateAction($object, $request, $parameters);
     }
 
     public function labelAction($id)

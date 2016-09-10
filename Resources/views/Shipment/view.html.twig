@@ -21,16 +21,14 @@
                 <tbody>
                 {%  for shipmentElement in shipment.shipmentElements %}
                     <tr>
-                        <td><small>
+                        <td>
                                 {{ shipmentElement.product.name }}
-                                {% if shipmentElement.product.productType == 3 %}
                                     - envoi n°{{ shipment.sendingIndex }}
-                                {% endif %}
-                            </small></td>
-                        <td><small>{{ shipmentElement.quantity }}</small></td>
+                            </td>
+                        <td>{{ shipmentElement.quantity }}</td>
 
-                        <td><small>
-                            </small>
+                        <td>
+                            
                         </td>
                     </tr>
                 {% endfor %}
@@ -45,56 +43,44 @@
                     <tbody>
                     <tr>
                         <th>Ordre</th>
-                        <td><small>{{ shipment.sendingIndex }}</small></td>
+                        <td>{{ shipment.sendingIndex }}</td>
                     </tr>
                     <tr>
                         <th>Date de départ</th>
-                        <td><small>{{ shipment.departureDate|date('d/m/Y') }}</small></td>
+                        <td>{{ shipment.departureAt|date('d/m/Y') }}</td>
                     </tr>
                     <tr>
                         <th>Date d'update</th>
-                        <td><small>{{ shipment.updateDate|date('d/m/Y') }}</small></td>
+                        <td>{{ shipment.updatedAt|date('d/m/Y') }}</td>
                     </tr>
                     <tr>
                         <th>Date de finalisation</th>
-                        <td><small>{{ shipment.endDate|date('d/m/Y') }}</small></td>
+                        <td>{{ shipment.endAt|date('d/m/Y') }}</td>
                     </tr>
                     <tr>
-                        <th>idDeliver</th>
-                        <td><small>{{ shipment.order.deliver.name }}</small></td>
+                        <th>livreur</th>
+                        <td>
+                            {% if shipment.shippingMethod %}
+                                {{ shipment.shippingMethod.deliver.name }}
+                            {% else %}
+                                Non défini
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <th>tracingInfos</th>
-                        <td><small>{{ shipment.tracingInfos }}</small></td>
+                        <td>{{ shipment.tracingInfos }}</td>
                     </tr>
                     <tr>
                         <th>state</th>
-                        <td><small>
-                                {% if shipment.state == 0 %}
-                                    <span class="label label-default">Inactif</span>
-                                {% elseif shipment.state == 1 %}
-                                    <span class="label label-info">Envoi préparé</span>
-                                {% elseif shipment.state == 2 %}
-                                    <span class="label label-info">Pris en charge par le transporteur</span>
-                                {% elseif shipment.state == 3 %}
-                                    <span class="label label-info">Arrivé en point relai</span>
-                                {% elseif shipment.state == 4 %}
-                                    <span class="label label-warning">Retourné chez le livreur</span>
-                                {% elseif shipment.state == 5 %}
-                                    <span class="label label-warning">Retourné chez l'expéditeur</span>
-                                {% elseif shipment.state == 6 %}
-                                    <span class="label label-info">Enregistré chez mondial Relay</span>
-                                {% elseif shipment.state == 7 %}
-                                    <span class="label label-default">NC</span>
-                                {% elseif shipment.state == 8 %}
-                                    <span class="label label-default">NC</span>
-                                {% elseif shipment.state == 9 %}
-                                    <span class="label label-success">Finalisé</span>
-                                {% endif %}
-                            </small>
+                        <td>{% include 'DyweeShipmentBundle:Shipment:state.html.twig' %}
                         </td>
                     <tbody>
                 </table>
+
+                <div class="box-body">
+                    <p><a href="{{ path('shipment_edit', {id: shipment.id}) }}" class="btn btn-default btn-block"><i class="fa fa-pencil"></i> Modifier</a> </p>
+                </div>
             </div>
         </div>
     </div>
