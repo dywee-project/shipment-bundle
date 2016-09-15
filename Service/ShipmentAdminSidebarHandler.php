@@ -29,7 +29,7 @@ class ShipmentAdminSidebarHandler
                 array(
                     'icon' => 'fa fa-list-alt',
                     'label' => 'shipment.sidebar.table',
-                    'route' => $this->router->generate('shipment_method_table')
+                    'route' => $this->router->generate('shipping_method_table')
                 ),
                 array(
                     'icon' => 'fa fa-list-alt',

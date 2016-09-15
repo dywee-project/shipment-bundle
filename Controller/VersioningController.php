@@ -3,7 +3,7 @@
 namespace Dywee\ShipmentBundle\Controller;
 
 use Dywee\ShipmentBundle\Entity\Deliver;
-use Dywee\ShipmentBundle\Entity\ShipmentMethod;
+use Dywee\ShipmentBundle\Entity\ShippingMethod;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ class VersioningController extends Controller
         $deliver1->setName('Retrait en magasin');
         $deliver1->setActive(true);
 
-        $shipmentMethod1 = new ShipmentMethod();
+        $shipmentMethod1 = new ShippingMethod();
         $shipmentMethod1->setName($deliver1->getName());
         $shipmentMethod1->setDeliver($deliver1);
         $shipmentMethod1->setActive(true);

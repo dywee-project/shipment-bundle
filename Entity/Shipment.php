@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Dywee\CoreBundle\Traits\TimeDelimitableEntity;
 use Dywee\OrderBundle\Entity\BaseOrderInterface;
+use Dywee\OrderBundle\Service\ShippingMethod;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
@@ -80,7 +81,7 @@ class Shipment
     private $weight = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ShipmentMethod")
+     * @ORM\ManyToOne(targetEntity="ShippingMethod")
      */
     private $shippingMethod;
 
@@ -324,10 +325,10 @@ class Shipment
     }
 
     /**
-     * @param ShipmentMethod $shippingMethod
+     * @param ShippingMethod $shippingMethod
      * @return Shipment
      */
-    public function setShippingMethod(ShipmentMethod $shippingMethod)
+    public function setShippingMethod(ShippingMethod $shippingMethod)
     {
         $this->shippingMethod = $shippingMethod;
         return $this;

@@ -7,12 +7,12 @@ use Dywee\AddressBundle\Entity\Country;
 use Dywee\CoreBundle\Traits\NameableEntity;
 
 /**
- * ShipmentMethod
+ * ShippingMethod
  *
- * @ORM\Table(name="shipment_methods")
- * @ORM\Entity(repositoryClass="Dywee\ShipmentBundle\Repository\ShipmentMethodRepository")
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Dywee\ShipmentBundle\Repository\ShippingMethodRepository")
  */
-class ShipmentMethod
+class ShippingMethod
 {
     use NameableEntity;
 
@@ -82,7 +82,7 @@ class ShipmentMethod
      * Set type
      *
      * @param string $type
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setType($type)
     {
@@ -105,7 +105,7 @@ class ShipmentMethod
      * Set minWeight
      *
      * @param float $minWeight
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setMinWeight($minWeight)
     {
@@ -128,7 +128,7 @@ class ShipmentMethod
      * Set maxWeight
      *
      * @param float $maxWeight
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setMaxWeight($maxWeight)
     {
@@ -151,7 +151,7 @@ class ShipmentMethod
      * Set price
      *
      * @param float $price
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setPrice($price)
     {
@@ -174,7 +174,7 @@ class ShipmentMethod
      * Set active
      *
      * @param boolean $active
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setActive($active)
     {
@@ -197,7 +197,7 @@ class ShipmentMethod
      * Set country
      *
      * @param Country $country
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setCountry(Country $country = null)
     {
@@ -220,7 +220,7 @@ class ShipmentMethod
      * Set deliver
      *
      * @param Deliver $deliver
-     * @return ShipmentMethod
+     * @return ShippingMethod
      */
     public function setDeliver(Deliver $deliver = null)
     {

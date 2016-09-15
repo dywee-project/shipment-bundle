@@ -2,39 +2,39 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Dywee\ShipmentBundle\Entity\ShipmentMethod;
-use Dywee\ShipmentBundle\Form\ShipmentMethodType;
+use Dywee\ShipmentBundle\Entity\ShippingMethod;
+use Dywee\ShipmentBundle\Form\ShippingMethodType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-class ShipmentMethodController extends Controller
+class ShippingMethodController extends Controller
 {
     /**
      * @return Response
      *
-     * @Route(name="shipment_method_table", path="admin/shipment/method")
+     * @Route(name="shipping_method_table", path="admin/shipment/method")
      */
     public function tableAction()
     {
-        $dr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:ShipmentMethod');
+        $dr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:ShippingMethod');
         $shipmentMethodList = $dr->findAll();
 
-        return $this->render('DyweeShipmentBundle:ShipmentMethod:table.html.twig', array('shipmentMethods' => $shipmentMethodList));
+        return $this->render('DyweeShipmentBundle:ShippingMethod:table.html.twig', array('shipmentMethods' => $shipmentMethodList));
     }
 
     /**
      * @param Request $request
      * @return mixed
      *
-     * @Route(name="shipment_method_add", path="admin/shipment/method/add")
+     * @Route(name="shipping_method_add", path="admin/shipment/method/add")
      */
     public function addAction(Request $request)
     {
-        $shipmentMethod = new ShipmentMethod();
+        $shipmentMethod = new ShippingMethod();
 
-        $form = $this->createForm(ShipmentMethodType::class, $shipmentMethod);
+        $form = $this->createForm(ShippingMethodType::class, $shipmentMethod);
 
         if($form->handleRequest($request)->isValid())
         {
@@ -42,32 +42,32 @@ class ShipmentMethodController extends Controller
             $em->persist($shipmentMethod);
             $em->flush();
 
-            return $this->redirectToRoute('shipment_method_table');
+            return $this->redirectToRoute('shipping_method_table');
         }
 
-        return $this->render('DyweeShipmentBundle:ShipmentMethod:add.html.twig', array('form' => $form->createView()));
+        return $this->render('DyweeShipmentBundle:ShippingMethod:add.html.twig', array('form' => $form->createView()));
     }
 
     /**
-     * @param ShipmentMethod $shipmentMethod
+     * @param ShippingMethod $shipmentMethod
      * @return Response
      *
-     * @Route(name="shipment_method_view", path="admin/shipment/method/{id}")
+     * @Route(name="shipping_method_view", path="admin/shipment/method/{id}")
      */
-    public function viewAction(ShipmentMethod $shipmentMethod)
+    public function viewAction(ShippingMethod $shipmentMethod)
     {
-        return $this->render('DyweeShipmentBundle:ShipmentMethod:view.html.twig', array('shipmentMethods' => $shipmentMethod));
+        return $this->render('DyweeShipmentBundle:ShippingMethod:view.html.twig', array('shipmentMethods' => $shipmentMethod));
     }
 
     /**
-     * @param ShipmentMethod $shipmentMethod
+     * @param ShippingMethod $shipmentMethod
      * @param Request $request
      *
-     * @Route(name="shipment_method_update", path="admin/shipment/method/{id}/update")
+     * @Route(name="shipping_method_update", path="admin/shipment/method/{id}/update")
      */
-    public function updateAction(ShipmentMethod $shipmentMethod, Request $request)
+    public function updateAction(ShippingMethod $shipmentMethod, Request $request)
     {
-        $form = $this->createForm(ShipmentMethodType::class, $shipmentMethod);
+        $form = $this->createForm(ShippingMethodType::class, $shipmentMethod);
 
         if($form->handleRequest($request)->isValid())
         {
@@ -75,10 +75,10 @@ class ShipmentMethodController extends Controller
             $em->persist($shipmentMethod);
             $em->flush();
 
-            return $this->redirectToRoute('shipment_method_table');
+            return $this->redirectToRoute('shipping_method_table');
         }
 
-        return $this->render('DyweeShipmentBundle:ShipmentMethod:edit.html.twig', array('form' => $form->createView()));
+        return $this->render('DyweeShipmentBundle:ShippingMethod:edit.html.twig', array('form' => $form->createView()));
     }
 
 
@@ -94,7 +94,7 @@ class ShipmentMethodController extends Controller
             if(is_numeric($country))
             {
                 $em = $this->getDoctrine()->getEntityManager();
-                $smr = $em->getRepository('DyweeShipmentBundle:ShipmentMethod');
+                $smr = $em->getRepository('DyweeShipmentBundle:ShippingMethod');
 
                 $order = $this->get('session')->get('order');
                 $or = $em->getRepository('DyweeOrderBundle:BaseOrder');
