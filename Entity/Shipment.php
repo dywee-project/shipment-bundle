@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Dywee\CoreBundle\Traits\TimeDelimitableEntity;
 use Dywee\OrderBundle\Entity\BaseOrderInterface;
-use Dywee\OrderBundle\Service\ShippingMethod;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
@@ -24,7 +23,12 @@ class Shipment
     const STATE_SHIPPING = 'shipment.state.shipping';
     const STATE_SHIPPED = 'shipment.state.shipped';
     const STATE_WAITING_CUSTOMER = 'shipment.state.waiting_customer';
+    const STATE_ARRIVED = 'shipment.state.arrived';
     const STATE_RETURNED = 'shipment.state.returned';
+
+    const MAIL_STEP_PREPARED = 'shipment.mail.prepared';
+    const MAIL_STEP_SHIPPED = 'shipment.mail.shipped';
+    const MAIL_STEP_ARRIVED = 'shipment.mail.arrived';
 
     use TimestampableEntity;
     use TimeDelimitableEntity;
@@ -84,6 +88,12 @@ class Shipment
      * @ORM\ManyToOne(targetEntity="ShippingMethod")
      */
     private $shippingMethod;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50)
+     */
+    private $shippingStatus;
 
 
     /**
@@ -359,4 +369,24 @@ class Shipment
         $this->id = null;
         $this->shipmentElements = new ArrayCollection();
     }
+
+    /**
+     * @return string
+     */
+    public function getShippingStatus()
+    {
+        return $this->shippingStatus;
+    }
+
+    /**
+     * @param string $shippingStatus
+     * @return Shipment
+     */
+    public function setShippingStatus($shippingStatus)
+    {
+        $this->shippingStatus = $shippingStatus;
+        return $this;
+    }
+
+
 }

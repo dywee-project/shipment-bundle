@@ -37,71 +37,63 @@ class ShipmentController extends ParentController
         return parent::updateAction($object, $request, $parameters);
     }
 
-    public function downloadAction($idShipment)
+    public function downloadAction(Shipment $shipment)
     {
-        $or = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:Shipment');
-        $shipment = $or->findOneById($idShipment);
-
-        if($shipment != null)
+        $fileName = /*'files/sendNotes/*/'envoi_'.$shipment->getId().'.pdf';
+        if (!file_exists($fileName))
         {
-            $fileName = /*'files/sendNotes/*/'envoi_'.$shipment->getId().'.pdf';
-            if (!file_exists($fileName))
-            {
-                $note = $this->renderView('DyweeShipmentBundle:Shipment:note.html.twig', array('shipment' => $shipment));
+            $note = $this->renderView('DyweeShipmentBundle:Shipment:note.html.twig', array('shipment' => $shipment));
 
-                return $this->render('DyweeShipmentBundle:Shipment:note.html.twig', array('shipment' => $shipment));
-
-                $pdfGenerator = $this->get('spraed.pdf.generator');
-
-                $pdfGenerator->generatePDF($note, 'UTF-8');
-
-                return new Response($pdfGenerator->generatePDF($note),
-                    200,
-                    array(
-                        'Content-Type' => 'application/pdf',
-                        'Content-Disposition' => 'inline; filename="'.$fileName.'"'
-                    )
-                );//*/
-
-                $this->get('knp_snappy.pdf')->generateFromHtml(
-                    $note,
-                    $fileName
-                );//*/
-            }
-
-            $response = new Response();
-
-            // Set headers
-            $response->headers->set('Cache-Control', 'private');
-            $response->headers->set('Content-type', mime_content_type($fileName));
-            $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($fileName) . '";');
-            $response->headers->set('Content-length', filesize($fileName));
-
-            // Send headers before outputting anything
-            $response->sendHeaders();
-
-            $response->setContent(readfile($fileName));
-            /*return new Response(
-                $this->get('knp_snappy.pdf')->getOutput($this->generateUrl('dywee_shipment_note_view', array('idShipment' => $idShipment), true)),
-                200,
-                array(
-                    'Content-Type'          => 'application/pdf',
-                    'Content-Disposition'   => 'attachment; filename="invoice07.pdf"'
-                )
-            );*/
-        }
-        throw $this->createNotFoundException('Envoi introuvable');
-    }
-
-    public function viewNoteAction($idShipment)
-    {
-        $this->container->get('profiler')->disable();
-        $or = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:Shipment');
-        $shipment = $or->findOneById($idShipment);
-
-        if($shipment != null)
             return $this->render('DyweeShipmentBundle:Shipment:note.html.twig', array('shipment' => $shipment));
 
-        throw $this->createNotFoundException('Envoi introuvable');
+            $pdfGenerator = $this->get('spraed.pdf.generator');
+
+            $pdfGenerator->generatePDF($note, 'UTF-8');
+
+            return new Response($pdfGenerator->generatePDF($note),
+                200,
+                array(
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="'.$fileName.'"'
+                )
+            );//*/
+
+            $this->get('knp_snappy.pdf')->generateFromHtml(
+                $note,
+                $fileName
+            );//*/
+        }
+
+        $response = new Response();
+
+        // Set headers
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', mime_content_type($fileName));
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($fileName) . '";');
+        $response->headers->set('Content-length', filesize($fileName));
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(readfile($fileName));
+        /*return new Response(
+            $this->get('knp_snappy.pdf')->getOutput($this->generateUrl('dywee_shipment_note_view', array('idShipment' => $idShipment), true)),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="invoice07.pdf"'
+            )
+        );*/
+    }
+
+    public function viewNoteAction(Shipment $shipment)
+    {
+        $this->container->get('profiler')->disable();
+        return $this->render('DyweeShipmentBundle:Shipment:note.html.twig', array('shipment' => $shipment));
+    }
+
+    public function sendAction(Shipment $shipment)
+    {
+
     }
 }
