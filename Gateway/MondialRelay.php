@@ -89,7 +89,7 @@ class MondialRelay
                     $message->setContentType("text/html");
 
                     $this->mailer->send($message);
-                    if ($shipment->getOrder()->getIsGift() === 1) {
+                    if ($shipment->getOrder()->isGift() === 1) {
                         $message = \Swift_Message::newInstance()
                             ->setSubject('La Belgique une fois - Un colis pour vous est parti')
                             ->setFrom('info@labelgiqueunefois.be')
@@ -145,7 +145,7 @@ class MondialRelay
             } else if ($result['WSI2_TracingColisDetailleResult']['STAT'] === 82 && $shipment->getState() !== Shipment::STATE_ARRIVED) {
                 $shipment->setState(Shipment::STATE_ARRIVED);
                 if (!$shipment->getMailStep() !== Shipment::MAIL_STEP_ARRIVED) {
-                    if ($shipment->getOrder()->getIsGift() === true) {
+                    if ($shipment->getOrder()->isGift() === true) {
 
                         $locale = $shipment->getOrder()->getLocale() ? ($shipment->getOrder()->getLocale() . '.') : '';
                         $emailTemplate5 = 'DyweeOrderBundle:Email:mail-step5.' . $locale . 'html.twig';

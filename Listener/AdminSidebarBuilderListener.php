@@ -4,7 +4,7 @@ namespace Dywee\ShipmentBundle\Listener;
 
 use Dywee\CoreBundle\DyweeCoreEvent;
 use Dywee\CoreBundle\Event\AdminSidebarBuilderEvent;
-use Dywee\OrderBundle\Service\OrderAdminSidebarHandler;
+use Dywee\OrderBundle\Service\AdminSidebarHandler;
 use Dywee\ShipmentBundle\Service\ShipmentAdminSidebarHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
