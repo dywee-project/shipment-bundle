@@ -39,7 +39,7 @@ class ShipmentRuleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Dywee\ShipmentBundle\Entity\ShipmentRule'
+            'data_class' => 'Dywee\OrderBundle\Entity\ShipmentRule'
         ));
     }
 }

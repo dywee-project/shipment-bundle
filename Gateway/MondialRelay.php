@@ -3,7 +3,7 @@
 namespace Dywee\ShipmentBundle\Gateway;
 
 use Doctrine\ORM\EntityManager;
-use Dywee\ShipmentBundle\Entity\Shipment;
+use Dywee\OrderBundle\Entity\Shipment;
 
 class MondialRelay
 {

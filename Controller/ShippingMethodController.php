@@ -2,7 +2,7 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Dywee\ShipmentBundle\Entity\ShippingMethod;
+use Dywee\OrderBundle\Entity\ShippingMethod;
 use Dywee\ShipmentBundle\Form\ShippingMethodType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,7 +18,7 @@ class ShippingMethodController extends Controller
      */
     public function tableAction()
     {
-        $dr = $this->getDoctrine()->getManager()->getRepository('DyweeShipmentBundle:ShippingMethod');
+        $dr = $this->getDoctrine()->getManager()->getRepository(ShippingMethod::class);
         $shipmentMethodList = $dr->findAll();
 
         return $this->render('DyweeShipmentBundle:ShippingMethod:table.html.twig', array('shipmentMethods' => $shipmentMethodList));
@@ -94,7 +94,7 @@ class ShippingMethodController extends Controller
             if(is_numeric($country))
             {
                 $em = $this->getDoctrine()->getEntityManager();
-                $smr = $em->getRepository('DyweeShipmentBundle:ShippingMethod');
+                $smr = $em->getRepository(ShippingMethod::class);
 
                 $order = $this->get('session')->get('order');
                 $or = $em->getRepository('DyweeOrderBundle:BaseOrder');

@@ -3,7 +3,7 @@
 namespace Dywee\ShipmentBundle\Controller;
 
 use Dywee\CoreBundle\Controller\ParentController;
-use Dywee\ShipmentBundle\Entity\ShipmentRule;
+use Dywee\OrderBundle\Entity\ShipmentRule;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

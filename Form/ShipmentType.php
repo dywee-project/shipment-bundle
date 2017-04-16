@@ -2,7 +2,7 @@
 
 namespace Dywee\ShipmentBundle\Form;
 
-use Dywee\ShipmentBundle\Entity\Shipment;
+use Dywee\OrderBundle\Entity\Shipment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,7 +37,7 @@ class ShipmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Dywee\ShipmentBundle\Entity\Shipment'
+            'data_class' => 'Dywee\OrderBundle\Entity\Shipment'
         ));
     }
 }

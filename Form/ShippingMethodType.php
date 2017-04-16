@@ -2,6 +2,8 @@
 
 namespace Dywee\ShipmentBundle\Form;
 
+use Dywee\AddressBundle\Entity\Country;
+use Dywee\OrderBundle\Entity\Deliver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,14 +24,14 @@ class ShippingMethodType extends AbstractType
         $builder
             ->add('name',      TextType::class, array('label' => 'shipmentMethod.form.name'))
             ->add('deliver',    EntityType::class,          array(
-                'class'         => 'DyweeShipmentBundle:Deliver',
+                'class'         => Deliver::class,
                 'choice_label'  => 'name',
                 'required'      => true,
                 'label'         => 'shipmentMethod.form.deliver'
             ))
             ->add('type',       TextType::class, array('required' => false, 'label' => 'shipmentMethod.form.code'))
             ->add('country',    EntityType::class,          array(
-                'class'         => 'DyweeAddressBundle:Country',
+                'class'         => Country::class,
                 'choice_label'  => 'name',
                 'required'      => false
             ))
@@ -46,7 +48,7 @@ class ShippingMethodType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Dywee\ShipmentBundle\Entity\ShippingMethod'
+            'data_class' => 'Dywee\OrderBundle\Entity\ShippingMethod'
         ));
     }
 }

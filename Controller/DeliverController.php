@@ -2,7 +2,7 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Dywee\ShipmentBundle\Entity\Deliver;
+use Dywee\OrderBundle\Entity\Deliver;
 use Dywee\ShipmentBundle\Form\DeliverType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,7 +18,7 @@ class DeliverController extends Controller
      */
     public function tableAction()
     {
-        $dr = $this->getDoctrine()->getRepository('DyweeShipmentBundle:Deliver');
+        $dr = $this->getDoctrine()->getRepository(Deliver::class);
         $deliverList = $dr->findAll();
 
         return $this->render('DyweeShipmentBundle:Deliver:table.html.twig', array('delivers' => $deliverList));

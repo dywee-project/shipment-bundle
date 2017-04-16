@@ -2,8 +2,8 @@
 
 namespace Dywee\ShipmentBundle\Controller;
 
-use Dywee\ShipmentBundle\Entity\Deliver;
-use Dywee\ShipmentBundle\Entity\ShippingMethod;
+use Dywee\OrderBundle\Entity\Deliver;
+use Dywee\OrderBundle\Entity\ShippingMethod;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
