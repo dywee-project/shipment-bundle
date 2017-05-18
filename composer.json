@@ -1,5 +1,5 @@
 {
-  "name": "olix21/shipment-bundle",
+  "name": "dywee/shipment-bundle",
   "type": "symfony-bundle",
   "description": "Symfony3 bundle for easy management of shipments",
   "keywords": ["shipment"],
@@ -14,11 +14,11 @@
   ],
   "require": {
     "php": ">=7.1.0",
-    "olix21/core-bundle": "dev-master"
+    "dywee/core-bundle": "dev-master"
   },
   "autoload": {
     "psr-4": {
-      "Olix21\\ShipmentBundle\\": ""
+      "Dywee\\ShipmentBundle\\": ""
     }
   }
 }
